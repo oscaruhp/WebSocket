@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+      <script type="text/javascript">
+       var ws;
+          function IniciarConexion(){
+                ws= new WebSocket("ws://echo.websocket.org");
+                ws.onopen= function(){
+                    alert("Conexión Abierta, Puedes enviar Mensajes");
+                }
+                ws.onmessage= function(Mensajes){
+                    var MensajesObtenidos=Mensajes.data;
+                    alert("Mensajes obtenidos  son:"+MensajesObtenidos);
+                }
+                ws.onclose= function(){
+                alert("Conexión Cerrada");
+                }
+          }
+          
+       </script>
+   </head>
+   <body>
+      <div>
+          <input type="button" onclick="IniciarConexion()" value="Iniciar WebSocket">
+         
+      </div>
+      
+   </body>
+</html>
