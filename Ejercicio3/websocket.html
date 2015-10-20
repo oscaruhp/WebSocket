@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+       <script src="jquery.min.js"></script>
+      <script type="text/javascript">
+       var ws;
+          function IniciarConexion(){
+                ws= new WebSocket("ws://achex.ca:4010");
+                ws.onopen= function(){
+                    
+                     ws.send('{"setID":"MichatRoom","passwd":"12345"}');
+                }
+                ws.onmessage= function(Mensajes){
+                    var MensajesObtenidos=Mensajes.data;
+                    var objeto= jQuery.parseJSON(MensajesObtenidos);
+                    alert("Mensajes obtenidos  son:"+objeto.NombreU);
+                    alert("Mensajes obtenidos  son:"+objeto.ContenidoM);
+                    
+                }
+                ws.onclose= function(){
+                alert("Conexión Cerrada");
+                }
+          }
+          IniciarConexion();
+          
+       </script>
+   </head>
+   <body>
+      <div>
+          <input type="button"  value="Iniciar WebSocket">
+          <input type="text" id="Mensaje"/>
+          <input type="button" id="btnEnviar" value="Enviar Mensaje">
+      </div>
+      <script>
+          var Nombre= prompt("Nombre:");
+          
+       $('#btnEnviar').click(function(){
+ws.send('{"to":"MichatRoom","NombreU":"'+Nombre+'","ContenidoM":"'+$('#Mensaje').val()+'"}');
+           
+       });
+       </script>
+   </body>
+</html>
